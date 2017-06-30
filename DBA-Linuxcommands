@@ -53,3 +53,29 @@ DROP TABLESPACE CMT_CARD_NAM_QA_TABLESPACE INCLUDING CONTENTS AND DATAFILES;
 ==================================================
   ===> For giving all the  access to the givrn folder
 sudo chmod -R ugo+rwx "./tmp/Cards_DB_Deployment_5FEB2016"
+--------------------------------------------------------------------------------------
+<Resource
+					name="jdbc/CMT_AML"
+                    auth="Container"
+                    type="javax.sql.DataSource"
+                    maxActive="100"
+                    maxIdle="30"
+                    maxWait="10000"
+                    driverClassName="oracle.jdbc.driver.OracleDriver"
+                    url="jdbc:oracle:thin:@vm-3cb9-6215.nam.nsroot.net:1522:cloudapp"
+                    username="CMT_CARD_NAM_DEV"
+                    password="Welcome1"
+/>
+
+url="jdbc:oracle:thin:@sd-66e5-4b94.nam.nsroot.net:1522:cloudapp"
+============================================================================================
+
+chown groupid:groupname filename
+ex: chown cloudusr:cloudusr SystemOut.log
+=============================================================================================
+In Windows:-
+1)To Dispaly the path:- 			path
+2) To dispaly the classPAth:-  		echo %CLASSPATH%
+In unix:-
+1)To Dispaly the path:- 			echo $path
+2) To dispaly the classPAth:-  		echo $CLASSPATH
