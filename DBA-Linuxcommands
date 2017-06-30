@@ -1,0 +1,55 @@
+Important DBA and LINUX commands  
+==========================================================================
+ora 01034: oracle not started===>connected to an idle instance
+>startup
+for DB version and all stuff\
+select * from v$version;
+----------------------------------------------------------------------------
+==>gives the total number of users in a given oracle DB
+select * from dba_users;
+SELECT USERNAME  FROM dba_USERS;
+
+//gives the table names for the given user/schema
+SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='SCHEMA_NAME';
+
+SELECT * FROM SYS.dba_directories WHERE DIRECTORY_NAME= 'DATA_PUMP_DIR';
+/optware/oracle/11.2.0.4/db_1/admin/cloudapp/dpdump/
+// gives the current instance_name or service name or sid
+show parameter instance_name;
+select instance_name from v$instance;
+
+select value from v$parameter where name like '%service_name%';
+-----------------------------------------------------------------------------------
+=======> Auditing The DataBAse<========
+show parameter audit;
+=======>check Partitioning is enabled or not for the given dB<=================
+select * from v$option  where parameter='Partitioning'; //
+Enable partitioning the database
+shutdown
+$ cd $ORACLE_HOME/rdbms/lib
+$ make -f ins_rdbms.mk part_on
+$ make -f ins_rdbms.mk ioracle
+restart 
+-------------------------------------------------------------------------------------------------
+
+ALTER SYSTEM KILL SESSION 'Sid,serial';
+----------------------------------------------------------------------------------------------
+// dropping the table space and resolving the error ORA-29857: domain indexes and/or secondary objects exist in the tablespace //
+select index_name from dba_indexes where index_type = 'DOMAIN' and tablespace_name = 'CMT_CARDS_NAM_QA';
+
+select distinct owner from dba_tables where tablespace_name='CMT_CARDS_NAM_QA';
+
+
+DROP TABLESPACE CMT_CARDS_NAM_QA  INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+
+DROP TABLESPACE CMT_EXTN_TS  INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+
+================================================================================================
+	// Dropping a user with its tablespace
+DROP USER CMT_CARD_NAM_QA CASCADE;
+ALTER TABLESPACE CMT_CARD_NAM_QA_TABLESPACE OFFLINE;
+DROP TABLESPACE CMT_CARD_NAM_QA_TABLESPACE INCLUDING CONTENTS AND DATAFILES;
+
+==================================================
+  ===> For giving all the  access to the givrn folder
+sudo chmod -R ugo+rwx "./tmp/Cards_DB_Deployment_5FEB2016"
